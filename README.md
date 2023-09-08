@@ -12,3 +12,5 @@ The model does not generalize well. But this is likely due to the small size of 
 Front end is built in Next.js. I tried to connect an sqllite db with Prisma, a server-side database library, which failed. Instead, I hard-coded a couple examples in the examples tab to show what should've been a dynamic database. 
 
 As loading the model into browser is very expensive, I decided to just make API calls to huggingface API instead. 
+
+I did not have time to fix loading time for the model so give it ~10 seconds before generating anything.
