@@ -1,7 +1,6 @@
 'use client'
 
 import Header from './components/header'
-import { output } from '@/next.config';
 import VideoPopup from './components/popup';
 
 import { useState, useEffect, useRef, useCallback } from 'react'
@@ -22,6 +21,7 @@ async function query(data) {
 export default function Home() {
   const [inputValue, setInputValue] = useState('');
   const [outputValue, setOutputValue] = useState('');
+  const [errorValue, setErrorValue] = useState('');
   return (
     <div className="bg-gray-100 min-h-screen flex flex-col">
       <Header></Header>
@@ -42,15 +42,19 @@ export default function Home() {
             query({ "inputs": JSON.stringify(inputValue) }) //params?
               .then((response) => {
                 if (response.error) {
-                  //if(response.error)
-                  setOutputValue("An error occurred. Please try again." + response.error);
+                  if (response.error.startsWith("Model yee")) {
+                    setErrorValue("Model is Loading ... Please Wait :)")
+                  }
+                  else {
+                    setErrorValue("An error occurred. Please try again soon. " + response.error);
+                  }
                 } else if (response[0].summary_text) { //response formatting is kinda whack
                   setOutputValue(response[0].summary_text);
                 }
               })
               .catch((error) => {
                 console.error("Network error:", error);
-                setOutputValue("A network error occurred. Please try again.");
+                setErrorValue("A network error occurred. Are you connected to internet?");
               });
           }}
           className="bg-gray-500 text-white py-1 px-3 rounded"
@@ -66,12 +70,17 @@ export default function Home() {
           </div>
         )}
 
-        <button className="bg-gray-500 text-white py-1 px-3 rounded mt-6">
-          Save "not functional"
-        </button>
-
-
       </div>
+      <div className="flex justify-center">
+        {outputValue !== '' && (      //if some output exists, display.
+          <button className="bg-gray-500 text-white py-1 px-3 rounded mt-6">
+            Save "not functional"
+          </button>
+        )
+        }
+      </div>
+
+
     </div>
   )
 }
