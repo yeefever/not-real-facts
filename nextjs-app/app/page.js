@@ -65,6 +65,12 @@ export default function Home() {
             <p className="text-lg text-gray-800">{outputValue}</p>
           </div>
         )}
+
+        <button className="bg-gray-500 text-white py-1 px-3 rounded mt-6">
+          Save "not functional"
+        </button>
+
+
       </div>
     </div>
   )
