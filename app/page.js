@@ -23,7 +23,7 @@ export default function Home() {
   const [outputValue, setOutputValue] = useState('');
   const [errorValue, setErrorValue] = useState('');
   return (
-    <div className="bg-gray-100 min-h-screen flex flex-col">
+    <body className="bg-gray-100 min-h-screen flex flex-col">
       <Header></Header>
       <VideoPopup />
       <h1 className="text-5xl font-bold mt-40 text-center">Motivational Statement Generator</h1>
@@ -43,7 +43,6 @@ export default function Home() {
               .then((response) => {
                 if (response.error) {
                   if (response.error.startsWith("Model yee")) {
-                    setErrorValue("Model is Loading ... Please Wait :)")
                   }
                   else {
                     setErrorValue("An error occurred. Please try again soon. " + response.error);
@@ -62,25 +61,31 @@ export default function Home() {
           Generate
         </button>
       </div>
-
       <div className="flex justify-center">
-        {outputValue !== '' && (      //if some output exists, display.
+        {errorValue != '' && (      //if some output exists, display.
           <div className="bg-white p-4 rounded mt-4">
-            <p className="text-lg text-gray-800">{outputValue}</p>
+            <p className="text-lg text-gray-800">{errorValue}</p>
           </div>
         )}
 
-      </div>
-      <div className="flex justify-center">
-        {outputValue !== '' && (      //if some output exists, display.
-          <button className="bg-gray-500 text-white py-1 px-3 rounded mt-6">
-            Save "not functional"
-          </button>
-        )
-        }
-      </div>
+        <div className="flex justify-center">
+          {outputValue !== '' && (      //if some output exists, display.
+            <div className="bg-white p-4 rounded mt-4">
+              <p className="text-lg text-gray-800">{outputValue}</p>
+            </div>
+          )}
+        </div>
 
+        </div>
+        <div className="flex justify-center">
+          {outputValue !== '' && (      //if some output exists, display.
+            <button className="bg-gray-500 text-white py-1 px-3 rounded mt-6">
+              Save "not functional"
+            </button>
+          )}
+        </div>
 
-    </div>
-  )
+        <script src="https://code.responsivevoice.org/responsivevoice.js?key=O0bXQX1A"></script>
+      </body>
+      )
 }
